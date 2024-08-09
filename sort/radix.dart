@@ -22,27 +22,27 @@ List<int> counting_sort(List<int> arr, int exp) {
   List<int> count = List.filled(10, 0);
   // Initialize the output array to store the sorted elements
   List<int> output = List.filled(arr.length, 0);
-  
+
   // Store the count of occurrences of each digit
   for (var i = 0; i < arr.length; i++) {
     count[(arr[i] ~/ exp) % 10]++;
   }
-  
+
   // Change count[i] so that it contains the actual position of the digit in the output array
   for (var i = 1; i < 10; i++) {
     count[i] += count[i - 1];
   }
-  
+
   // Build the output array
   for (var i = arr.length - 1; i >= 0; i--) {
     output[count[(arr[i] ~/ exp) % 10] - 1] = arr[i];
     count[(arr[i] ~/ exp) % 10]--;
   }
-  
+
   // Copy the output array to arr, so that arr now contains sorted numbers according to the current digit
   for (var i = 0; i < arr.length; i++) {
     arr[i] = output[i];
   }
-  
+
   return arr;
 }

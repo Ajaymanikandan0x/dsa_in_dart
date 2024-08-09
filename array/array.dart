@@ -59,7 +59,10 @@ bool is_palindrome(String str) {
 
 // Convert a string to title case
 String to_title_case(String str) {
-  return str.split(' ').map((word) => word[0].toUpperCase() + word.substring(1)).join(' ');
+  return str
+      .split(' ')
+      .map((word) => word[0].toUpperCase() + word.substring(1))
+      .join(' ');
 }
 
 // Function to add period to a string
@@ -72,28 +75,29 @@ String longest_word(String str) {
   return str.split(' ').reduce((a, b) => a.length > b.length ? a : b);
 }
 
- //Find the longest repeating character in a string
+//Find the longest repeating character in a string
 String longest_repeating_character(String str) {
   if (str.isEmpty) return '';
-  
+
   Map<String, int> char_count = {};
   for (int i = 0; i < str.length; i++) {
     String char = str[i];
     char_count[char] = (char_count[char] ?? 0) + 1;
   }
-  
+
   String longest_char = '';
   int max_count = 0;
-  
+
   char_count.forEach((key, value) {
     if (value > max_count) {
       max_count = value;
       longest_char = key;
     }
   });
-  
+
   return longest_char;
 }
+
 //Find the index of the first unique character from the string
 int first_unique_character(String str) {
   Map<String, int> char_count = {};
@@ -101,13 +105,13 @@ int first_unique_character(String str) {
     String char = str[i];
     char_count[char] = (char_count[char] ?? 0) + 1;
   }
-  
+
   for (int i = 0; i < str.length; i++) {
     if (char_count[str[i]] == 1) {
       return i;
     }
   }
-  
+
   return -1;
 }
 
@@ -115,25 +119,25 @@ int first_unique_character(String str) {
 String remove_duplicates_from_string(String str) {
   String result = '';
   Set<String> seen = {};
-  
+
   for (int i = 0; i < str.length; i++) {
     if (!seen.contains(str[i])) {
       result += str[i];
       seen.add(str[i]);
     }
   }
-  
+
   return result;
 }
 
- //Find the number with the maximum occurrence of numbers
+//Find the number with the maximum occurrence of numbers
 int find_max_occurrence(List<int> nums) {
   if (nums.isEmpty) return -1;
-  
+
   Map<int, int> count_map = {};
   int max_num = nums[0];
   int max_count = 0;
-  
+
   for (int num in nums) {
     count_map[num] = (count_map[num] ?? 0) + 1;
     if (count_map[num]! > max_count) {
@@ -141,6 +145,47 @@ int find_max_occurrence(List<int> nums) {
       max_num = num;
     }
   }
-  
+
   return max_num;
 }
+
+//find the most repeating element
+
+int find_most_repete(List<int> arr) {
+  int? res;
+  int val = 0;
+  for (var i = 0; i < arr.length; i++) {
+    int count = 0;
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[i] == arr[j]) {
+        count++;
+      }
+    }
+    if (count > val) {
+      val = count;
+      res = arr[i];
+    }
+  }
+  return res!;
+}
+
+// sort with duplicate frequency
+
+List<int> frequencySort(List<int> nums) {
+  Map<int, int> frequency = {};
+
+  for (int num in nums) {
+    frequency[num] = (frequency[num] ?? 0) + 1;
+  }
+
+  nums.sort((a, b) {
+    if (frequency[a] != frequency[b]) {
+      return frequency[a]! - frequency[b]!;
+    } else {
+      return b - a;
+    }
+  });
+
+  return nums;
+}
+
