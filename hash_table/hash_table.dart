@@ -5,16 +5,19 @@ class HashTable {
   HashTable(this.table_size)
       : table = List.generate(table_size, (_) => LinkedList());
 
+  // Function to calculate the hash value for a given key
   int _hash_function(String key) {
     int hash = key.hashCode;
     return hash % table_size;
   }
 
+  // Function to insert a key-value pair into the hash table
   void insert(String key, dynamic value) {
     int index = _hash_function(key);
     table[index].add(KeyValue(key, value));
   }
 
+  // Function to search for a value by its key in the hash table
   dynamic search(String key) {
     int index = _hash_function(key);
     var current = table[index].head;
@@ -27,6 +30,7 @@ class HashTable {
     return null;
   }
 
+  // Function to delete a key-value pair from the hash table
   void delete(String key) {
     int index = _hash_function(key);
     var current = table[index].head;
@@ -56,6 +60,7 @@ class KeyValue {
 class LinkedList<T> {
   Node<T>? head;
 
+  // Function to add a new node to the linked list
   void add(T data) {
     var new_node = Node(data);
     if (head == null) {
@@ -83,10 +88,12 @@ class HashTable_<K, V> {
     _buckets = List<List<MapEntry<K, V>>>.generate(_capacity, (_) => []);
   }
   
+  // Function to calculate the hash value for a given key
   int _hash(K key) {
     return key.hashCode % _capacity;
   }
   
+  // Function to insert a key-value pair into the hash table
   void put(K key, V value) {
     int index = _hash(key);
     for (int i = 0; i < _buckets[index].length; i++) {
@@ -98,6 +105,7 @@ class HashTable_<K, V> {
     _buckets[index].add(MapEntry(key, value));
   }
   
+  // Function to search for a value by its key in the hash table
   V? get(K key) {
     int index = _hash(key);
     for (MapEntry<K, V> entry in _buckets[index]) {
@@ -108,6 +116,7 @@ class HashTable_<K, V> {
     return null;
   }
   
+  // Function to delete a key-value pair from the hash table
   void remove(K key) {
     int index = _hash(key);
     _buckets[index].removeWhere((entry) => entry.key == key);

@@ -9,10 +9,12 @@ class Node {
 class BinarySearchTree {
   Node? root;
 
+  // Inserts a new node with the given data into the BST
   void insert(int data) {
     root = _insert(root, data);
   }
 
+  // Helper function to recursively insert a new node
   Node _insert(Node? node, int data) {
     if (node == null) {
       return Node(data);
@@ -25,6 +27,7 @@ class BinarySearchTree {
     return node;
   }
 
+  // Performs an in-order traversal of the BST
   void inOrderTraversal(Node? node) {
     if (node == null) return;
     inOrderTraversal(node.left);
@@ -32,6 +35,7 @@ class BinarySearchTree {
     inOrderTraversal(node.right);
   }
 
+  // Performs a pre-order traversal of the BST
   void preOrderTraversal(Node? node) {
     if (node == null) return;
     print(node.data);
@@ -39,6 +43,7 @@ class BinarySearchTree {
     preOrderTraversal(node.right);
   }
 
+  // Performs a post-order traversal of the BST
   void postOrderTraversal(Node? node) {
     if (node == null) return;
     postOrderTraversal(node.left);
@@ -46,6 +51,7 @@ class BinarySearchTree {
     print(node.data);
   }
 
+  // Performs a level-order traversal of the BST
   void levelOrderTraversal(Node? root) {
     if (root == null) return;
 
@@ -60,10 +66,12 @@ class BinarySearchTree {
     }
   }
 
+  // Searches for a node with the given data in the BST
   bool search(int data) {
     return _search(root, data) != null;
   }
 
+  // Helper function to recursively search for a node
   Node? _search(Node? node, int data) {
     if (node == null || node.data == data) {
       return node;
@@ -75,10 +83,12 @@ class BinarySearchTree {
     }
   }
 
+  // Deletes a node with the given data from the BST
   void delete(int data) {
     root = _delete(root, data);
   }
 
+  // Helper function to recursively delete a node
   Node? _delete(Node? node, int data) {
     if (node == null) return null;
 
@@ -99,13 +109,27 @@ class BinarySearchTree {
     return node;
   }
 
+  // Finds the minimum value node in a subtree
   Node? _findMin(Node? node) {
     while (node?.left != null) {
       node = node?.left;
     }
     return node;
   }
-    bool contains(int data) {
+
+  int height(Node? node) {
+    if (node == null) return -1;
+    return 1 + _maxHeight(height(node.left), height(node.right));
+  }
+
+  int _maxHeight(int? leftHeight, int? rightHeight) {
+    if (leftHeight == null) return rightHeight ?? -1;
+    if (rightHeight == null) return leftHeight;
+    return leftHeight > rightHeight ? leftHeight : rightHeight;
+  }
+
+  // Checks if the BST contains a node with the given data
+  bool contains(int data) {
     Node? current = root;
     while (current != null) {
       if (data < current.data) {

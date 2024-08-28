@@ -3,6 +3,7 @@ class MaxHeap {
 
   MaxHeap();
 
+  // Builds a max heap from the given list of elements
   void build_heap(List<int> elements) {
     heap = elements;
     for (int i = (heap.length ~/ 2) - 1; i >= 0; i--) {
@@ -10,11 +11,13 @@ class MaxHeap {
     }
   }
 
+  // Inserts a new element into the heap
   void insert(int element) {
     heap.add(element);
     heapify_up(heap.length - 1);
   }
 
+  // Removes and returns the maximum element from the heap
   int remove() {
     if (heap.isEmpty) {
       throw Exception("Heap is empty");
@@ -27,6 +30,7 @@ class MaxHeap {
     return root;
   }
 
+  // Deletes a specific element from the heap
   void delete(int element) {
     int index = heap.indexOf(element);
     if (index == -1) {
@@ -46,6 +50,7 @@ class MaxHeap {
     }
   }
 
+  // Restores the heap property by moving an element up the heap
   void heapify_up(int index) {
     while (index > 0) {
       int parent_index = (index - 1) ~/ 2;
@@ -55,6 +60,7 @@ class MaxHeap {
     }
   }
 
+  // Restores the heap property by moving an element down the heap
   void heapify_down(int index) {
     int largest = index;
     int left_child = 2 * index + 1;
@@ -74,12 +80,14 @@ class MaxHeap {
     }
   }
 
+  // Swaps two elements in the heap
   void swap(int i, int j) {
     int temp = heap[i];
     heap[i] = heap[j];
     heap[j] = temp;
   }
 
+  // Prints the current state of the heap
   void print_heap() {
     print(heap);
   }

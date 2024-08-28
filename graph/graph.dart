@@ -1,28 +1,33 @@
 class Graph {
   Map<String, List<String>> adjacencyList = {};
 
+  // Adds a new vertex to the graph if it doesn't already exist
   void addVertex(String vertex) {
     if (!adjacencyList.containsKey(vertex)) {
       adjacencyList[vertex] = [];
     }
   }
 
+  // Adds an undirected edge between two vertices
   void addEdge(String vertex1, String vertex2) {
     adjacencyList[vertex1]?.add(vertex2);
     adjacencyList[vertex2]?.add(vertex1);
   }
 
+  // Prints the graph structure
   void printGraph() {
     adjacencyList.forEach((vertex, edges) {
       print("$vertex: ${edges.join(', ')}");
     });
   }
 
+  // Performs Depth-First Search starting from the given vertex
   void dfs(String start) {
     Set<String> visited = {};
     _dfsHelper(start, visited);
   }
 
+  // Helper function for DFS
   void _dfsHelper(String vertex, Set<String> visited) {
     if (visited.contains(vertex)) return;
 
@@ -34,6 +39,19 @@ class Graph {
     });
   }
 
+  //   void dfs_(String vertex) {
+    
+  //   Set<String> visited = {};
+  //   if (!visited.contains(vertex)) {
+  //     visited.add(vertex);
+  //     print(vertex);
+  //     adjacencyList[vertex]?.forEach((neighbor) {
+  //       dfs_(neighbor);
+  //     });
+  //   }
+  // }
+
+  // Performs Breadth-First Search starting from the given vertex
   void bfs(String start) {
     Set<String> visited = {};
     List<String> queue = [];
@@ -54,6 +72,7 @@ class Graph {
     }
   }
 
+  // Checks if the graph contains a cycle
   bool hasCycle() {
     Set<String> visited = {};
 
@@ -67,6 +86,7 @@ class Graph {
     return false;
   }
 
+  // Helper function for cycle detection
   bool _hasCycleHelper(String vertex, Set<String> visited, String? parent) {
     visited.add(vertex);
 
@@ -83,6 +103,7 @@ class Graph {
     return false;
   }
 
+  // Removes a vertex and all its edges from the graph
   void removeVertex(String vertex) {
     adjacencyList.remove(vertex);
     adjacencyList.forEach((key, neighbors) {
@@ -90,11 +111,13 @@ class Graph {
     });
   }
 
+  // Removes an undirected edge between two vertices
   void removeEdge(String vertex1, String vertex2) {
     adjacencyList[vertex1]?.remove(vertex2);
     adjacencyList[vertex2]?.remove(vertex1);
   }
 
+  // Deletes a vertex and all its edges from the graph
   void deleteVertex(String vertex) {
     if (!adjacencyList.containsKey(vertex)) {
       return; 
@@ -108,6 +131,7 @@ class Graph {
     adjacencyList.remove(vertex);
   }
 
+  // Deletes an undirected edge between two vertices
   void deleteEdge(String vertex1, String vertex2) {
     adjacencyList[vertex1]?.remove(vertex2);
     adjacencyList[vertex2]?.remove(vertex1);

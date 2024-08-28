@@ -1,11 +1,12 @@
 class TrieNode {
-  Map<String, TrieNode> children = { };
+  Map<String, TrieNode> children = {};
   bool isEndOfWord = false;
 }
 
 class Trie {
   final TrieNode root = TrieNode();
 
+  // Inserts a word into the trie
   void insert(String word) {
     TrieNode currentNode = root;
     for (var char in word.split('')) {
@@ -14,6 +15,7 @@ class Trie {
     currentNode.isEndOfWord = true;
   }
 
+  // Searches for a word in the trie
   bool search(String word) {
     TrieNode currentNode = root;
     for (var char in word.split('')) {
@@ -25,6 +27,7 @@ class Trie {
     return currentNode.isEndOfWord;
   }
 
+  // Checks if any word in the trie starts with the given prefix
   bool startsWith(String prefix) {
     TrieNode currentNode = root;
     for (var char in prefix.split('')) {
@@ -36,6 +39,7 @@ class Trie {
     return true;
   }
 
+  // Returns a list of words that start with the given prefix
   List<String> autocomplete(String prefix) {
     List<String> results = [];
     TrieNode currentNode = root;
@@ -49,6 +53,7 @@ class Trie {
     return results;
   }
 
+  // Helper function to find all words with a given prefix
   void _findAllWords(TrieNode node, String currentWord, List<String> results) {
     if (node.isEndOfWord) {
       results.add(currentWord);
@@ -58,10 +63,12 @@ class Trie {
     });
   }
 
+  // Deletes a word from the trie
   void delete(String word) {
     _delete(root, word, 0);
   }
 
+  // Helper function to recursively delete a word from the trie
   bool _delete(TrieNode node, String word, int index) {
     if (index == word.length) {
       if (!node.isEndOfWord) {
@@ -76,7 +83,8 @@ class Trie {
       return false;
     }
 
-    bool shouldDeleteCurrentNode = _delete(node.children[char]!, word, index + 1);
+    bool shouldDeleteCurrentNode =
+        _delete(node.children[char]!, word, index + 1);
 
     if (shouldDeleteCurrentNode) {
       node.children.remove(char);
@@ -104,3 +112,4 @@ void main() {
   suggestions = trie.autocomplete("hell");
   print(suggestions); // [hello]
 }
+

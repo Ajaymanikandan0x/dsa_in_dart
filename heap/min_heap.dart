@@ -3,6 +3,7 @@ class MinHeap {
 
   MinHeap();
 
+  // Builds a min heap from the given list of elements
   void buildHeap(List<int> elements) {
     heap = elements;
     for (int i = (heap.length ~/ 2) - 1; i >= 0; i--) {
@@ -10,11 +11,13 @@ class MinHeap {
     }
   }
 
+  // Inserts a new element into the heap
   void insert(int element) {
     heap.add(element);
     heapifyUp(heap.length - 1);
   }
 
+  // Removes and returns the minimum element from the heap
   int remove() {
     if (heap.isEmpty) {
       throw Exception("Heap is empty");
@@ -27,6 +30,7 @@ class MinHeap {
     return root;
   }
 
+  // Deletes a specific element from the heap
   void delete(int element) {
     int index = heap.indexOf(element);
     if (index == -1) {
@@ -45,6 +49,7 @@ class MinHeap {
     }
   }
 
+  // Moves an element up the heap to maintain the heap property
   void heapifyUp(int index) {
     while (index > 0) {
       int parentIndex = (index - 1) ~/ 2;
@@ -54,6 +59,7 @@ class MinHeap {
     }
   }
 
+  // Moves an element down the heap to maintain the heap property
   void heapifyDown(int index) {
     int smallest = index;
     int leftChild = 2 * index + 1;
@@ -73,12 +79,14 @@ class MinHeap {
     }
   }
 
+  // Swaps two elements in the heap
   void swap(int i, int j) {
     int temp = heap[i];
     heap[i] = heap[j];
     heap[j] = temp;
   }
 
+  // Prints the current state of the heap
   void printHeap() {
     print(heap);
   }
